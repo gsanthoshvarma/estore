@@ -1,17 +1,49 @@
-package com.sr.emstore.model;
+package com.sr.emstore.po;
 
-public class Product {
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Product")
+public class ProductPO {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO,generator="productSequence")
+	@SequenceGenerator(name="productSequence",sequenceName="PRODUCT_SEQ")
+	@Column(name="PRODUCT_ID")
 	private int productId;
+	@Column(name="PRODUCT_NAME")
 	private String productName;
+	@Column(name="PRODUCT_CATEGORY")
 	private String productCategory;
+	@Column(name="DESCRIPTION")
 	private String productDescription;
+	@Column(name="PRODUCT_PRICE")
 	private double productPrice;
+	@Column(name="PRODUCT_CONDITION")
 	private String productCondition;
+	@Column(name="PRODUCT_STATE")
 	private String productState;
+	@Column(name="UNIT_IN_STOCK")
 	private int unitInStock;
+	@Column(name="MANFACTURE")
 	private String productManfacture;
+	@Embedded
+	private AuditPO auditPO;
 	
+	
+	public AuditPO getAuditPO() {
+		return auditPO;
+	}
+	public void setAuditPO(AuditPO auditPO) {
+		this.auditPO = auditPO;
+	}
 	public int getProductId() {
 		return productId;
 	}
@@ -66,7 +98,5 @@ public class Product {
 	public void setProductManfacture(String productManfacture) {
 		this.productManfacture = productManfacture;
 	}
-	
-	
 	
 }
