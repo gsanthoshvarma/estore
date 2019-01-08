@@ -24,14 +24,14 @@
               </thead>
               <c:forEach items="${products}" var="prod" >
               <tr>
-                 <td><img src="#" alt="image"></td>
+                 <td><img src='<c:url value="/resources/images/${prod.productId}.png" />' alt="image" style="width: 100%"></td>
                  <td>${prod.productName}</td>
                  <td>${prod.productCategory}</td>
                  <td>${prod.productCondition}</td>
                  <td>${prod.productPrice}</td>
                  <td><a href=' <c:url value="/getproducts/viewproduct/${prod.productId}"  />'>
                  <span class="glyphicon glyphicon-info-sign"></span></a></td>
-                 <td><a href=' <c:url value="#"  />'>
+                 <td><a href='<c:url value="/admin/productInventory/deleteproduct/${prod.productId}" />'>
                  <span class="glyphicon glyphicon-remove-circle"></span></a></td>
               </tr>
               </c:forEach>

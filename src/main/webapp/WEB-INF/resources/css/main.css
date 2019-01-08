@@ -10,8 +10,6 @@
 .table td {
     text-align: center;
     background: whitesmoke;
-
-    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +47,14 @@ public class AdminController {
 		Product product = new Product();
 		model.addAttribute("product", product);
 		return "addProduct";
+	}
+	
+	
+	@RequestMapping(value="/admin/productInventory/deleteproduct/{productId}",method=RequestMethod.GET)
+	public String addProduct(@PathVariable("productId") final int productId) {
+		System.out.println(productId);
+		service.deleteProduct(productId);
+		return "redirect:/admin/productInventory";
 	}
 	
 	

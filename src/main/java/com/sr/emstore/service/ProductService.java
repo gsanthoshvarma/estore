@@ -45,6 +45,7 @@ public class ProductService {
 	
 	private Product buildProductPOObject(ProductPO productPO) {
 			Product product = new Product();
+			product.setProductId(productPO.getProductId());
 			product.setProductName(productPO.getProductName());
 			product.setProductPrice(productPO.getProductPrice());
 			product.setProductState(productPO.getProductState());
@@ -68,6 +69,12 @@ public class ProductService {
 		auditPO.setCreatedDate(new Date());
 		productPO.setAuditPO(auditPO);
 		return productDAO.saveProduct(buildProductObject(product));
+	}
+	
+	public void deleteProduct(int productId) {
+		ProductPO productPO = new ProductPO();
+		productPO.setProductId(productId);
+		productDAO.deleteProduct(productPO);
 	}
 	
 	private ProductPO buildProductObject(Product product) {

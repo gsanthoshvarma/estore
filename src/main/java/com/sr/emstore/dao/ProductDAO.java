@@ -39,4 +39,11 @@ public class ProductDAO {
 		tx.commit();
 		return productPO.getProductId();
 	}
+	
+	public void deleteProduct(ProductPO productPO) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		session.delete(productPO);
+		tx.commit();
+	}
 }
