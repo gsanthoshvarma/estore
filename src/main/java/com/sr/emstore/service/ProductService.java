@@ -1,6 +1,7 @@
 package com.sr.emstore.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sr.emstore.dao.ProductDAO;
 import com.sr.emstore.model.Product;
+import com.sr.emstore.po.AuditPO;
 import com.sr.emstore.po.ProductPO;
 
 @Transactional
@@ -41,7 +43,7 @@ public class ProductService {
 		return products;
 	}
 	
-	private Product buildProductObject(ProductPO productPO) {
+	private Product buildProductPOObject(ProductPO productPO) {
 			Product product = new Product();
 			product.setProductName(productPO.getProductName());
 			product.setProductPrice(productPO.getProductPrice());
@@ -56,7 +58,29 @@ public class ProductService {
 		
 	public Product getProductById(int id) {
 		ProductPO productPO = productDAO.getProductById(id);
-		return buildProductObject(productPO);
+		return buildProductPOObject(productPO);
+	}
+	
+	public int saveProduct(Product product) {
+		ProductPO productPO = buildProductObject(product);
+		AuditPO auditPO = new AuditPO();
+		auditPO.setCreatedBy("user1");
+		auditPO.setCreatedDate(new Date());
+		productPO.setAuditPO(auditPO);
+		return productDAO.saveProduct(buildProductObject(product));
+	}
+	
+	private ProductPO buildProductObject(Product product) {
+		ProductPO productPO = new ProductPO();
+		productPO.setProductName(product.getProductName());
+		productPO.setProductPrice(product.getProductPrice());
+		productPO.setProductState(product.getProductState());
+		productPO.setUnitInStock(product.getUnitInStock());
+		productPO.setProductManfacture(product.getProductManfacture());
+		productPO.setProductDescription(product.getProductDescription());
+		productPO.setProductCondition(product.getProductCondition());
+		productPO.setProductCategory(product.getProductCategory());
+		return productPO;
 	}
 
 }

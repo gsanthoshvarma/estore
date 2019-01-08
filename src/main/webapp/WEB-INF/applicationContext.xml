@@ -15,10 +15,10 @@
        
        
        <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-         <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" />
-         <property name="username" value="product" />
-         <property name="password" value="product" />
+         <property name="driverClassName" value="${driverName}" />
+         <property name="url" value="${url}" />
+         <property name="username" value="${username}" />
+         <property name="password" value="${password}" />
        </bean>
        
        <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -31,7 +31,7 @@
         <property name="hibernateProperties">
           <props>
              <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
-             <prop key="show_sql">true</prop>
+             <prop key="hibernate.show_sql">true</prop>
              <prop key="hbm2ddl.auto">update</prop>
              <prop key="hibernate.format_sql">true</prop>
              <prop key="hibernate.current_session_context_class">thread</prop>
@@ -42,5 +42,13 @@
       <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
          <property name="sessionFactory" ref="sessionFactory"/>
        </bean>
+       
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1024000" />
+    </bean>
+    
+    <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="locations" value="/WEB-INF/estore.properties"/>
+    </bean>
        
 </beans>

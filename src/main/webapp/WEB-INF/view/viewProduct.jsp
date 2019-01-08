@@ -15,12 +15,24 @@
                       <img src="#" alt="image" style="width:100% height:300px" />
                   </div>
                   <div class="col-md-5">
-                    <h3>Product Name :<c:out value="${product.productName}"/></h3>
-                    <p>Product Description: <c:out value="${product.productDescription}"/></p>
-                     <p>Manufacture : <c:out value="${product.productManfacture}"/></p>
-                     <p>Category : <c:out value="${product.productCategory}"/></p>
-                     <p>Condition : <c:out value="${product.productCondition}"/></p>
-                     <p>Price : <c:out value="${product.productPrice}"/></p>
+                      <h3>${product.productName}</h3>
+                      <p>${product.productDescription}</p>
+                     <p>
+                        <strong>Manufacture</strong> : ${product.productManfacture}
+                        
+                     </p>
+                     <p>
+                        <strong>Category</strong> : ${product.productCategory}
+                        
+                     </p>
+                     <p>
+                        <strong>Condition</strong> : ${product.productCondition}
+                        
+                     </p>
+                     <p>
+                        <strong>Price</strong> : ${product.productPrice}
+                        
+                     </p>
                   </div>
                   
               </div>

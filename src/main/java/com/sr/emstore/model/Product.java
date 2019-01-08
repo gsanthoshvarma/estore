@@ -1,5 +1,7 @@
 package com.sr.emstore.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Product {
 
 	private int productId;
@@ -11,7 +13,14 @@ public class Product {
 	private String productState;
 	private int unitInStock;
 	private String productManfacture;
+	private MultipartFile productImage;
 	
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
+	}
 	public int getProductId() {
 		return productId;
 	}
