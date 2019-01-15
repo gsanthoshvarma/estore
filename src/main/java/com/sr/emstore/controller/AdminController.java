@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,12 @@ public class AdminController {
 		System.out.println(productId);
 		service.deleteProduct(productId);
 		return "redirect:/admin/productInventory";
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e) {
+		return "exception";
+		
 	}
 	
 	
