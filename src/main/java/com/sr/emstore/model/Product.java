@@ -1,17 +1,27 @@
 package com.sr.emstore.model;
 
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Product {
 
 	private int productId;
+	@NotEmpty(message="Product name should not be empty")
 	private String productName;
+	@NotEmpty(message="Product Category should not be empty")
 	private String productCategory;
 	private String productDescription;
+	@Min(value = 1,message="The Product price must not be less than zero")
 	private double productPrice;
+	@NotEmpty(message="Product Condition should not be empty")
 	private String productCondition;
+	//@NotEmpty
 	private String productState;
+	@Min(value = 1,message="The Product stock must not be less than zero")
 	private int unitInStock;
+	@NotEmpty(message="Product Manfacture should not be empty")
 	private String productManfacture;
 	private MultipartFile productImage;
 	

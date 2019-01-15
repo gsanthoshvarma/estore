@@ -7,11 +7,14 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.xml.bind.DataBindingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,8 +62,12 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="/admin/productInventory/saveProduct",method= RequestMethod.POST)
-	public String saveProduct(@ModelAttribute("product") Product product,HttpServletRequest request) {
+	public String saveProduct(@Valid @ModelAttribute("product") Product product,BindingResult result,HttpServletRequest request) {
 		System.out.println("save product page "+product.getProductName());
+		if(result.hasErrors()) {
+			System.out.println(result.getErrorCount());
+			return "addProduct";
+		}else {
 		int productId = service.saveProduct(product);
 		multipartFile = product.getProductImage();
 		String filePath = request.getSession().getServletContext().getRealPath("/");
@@ -81,6 +88,7 @@ public class AdminController {
 			}
 		}
 		return "redirect:/admin/productInventory";
+	}
 	}
 	
 	@RequestMapping(value="/admin",method=RequestMethod.GET)
