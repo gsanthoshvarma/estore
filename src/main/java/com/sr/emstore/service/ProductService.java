@@ -28,47 +28,32 @@ public class ProductService {
 	private List<Product> buildProductObject(List<ProductPO> productPOs) {
 		List<Product> products = new ArrayList<>();
 		for(ProductPO po : productPOs) {
-			Product product = new Product();
-			product.setProductId(po.getProductId());
-			product.setProductName(po.getProductName());
-			product.setProductPrice(po.getProductPrice());
-			product.setProductState(po.getProductState());
-			product.setUnitInStock(po.getUnitInStock());
-			product.setProductManfacture(po.getProductManfacture());
-			product.setProductDescription(po.getProductDescription());
-			product.setProductCondition(po.getProductCondition());
-			product.setProductCategory(po.getProductCategory());
-			products.add(product);
+			products.add(buildProductObject(po));
 		}
 		return products;
 	}
-	
-	private Product buildProductPOObject(ProductPO productPO) {
-			Product product = new Product();
-			product.setProductId(productPO.getProductId());
-			product.setProductName(productPO.getProductName());
-			product.setProductPrice(productPO.getProductPrice());
-			product.setProductState(productPO.getProductState());
-			product.setUnitInStock(productPO.getUnitInStock());
-			product.setProductManfacture(productPO.getProductManfacture());
-			product.setProductDescription(productPO.getProductDescription());
-			product.setProductCondition(productPO.getProductCondition());
-			product.setProductCategory(productPO.getProductCategory());
-			return product;
-		}
 		
 	public Product getProductById(int id) {
 		ProductPO productPO = productDAO.getProductById(id);
-		return buildProductPOObject(productPO);
+		return buildProductObject(productPO);
 	}
 	
 	public int saveProduct(Product product) {
-		ProductPO productPO = buildProductObject(product);
-		AuditPO auditPO = new AuditPO();
-		auditPO.setCreatedBy("user1");
-		auditPO.setCreatedDate(new Date());
+		ProductPO productPO = buildProductPOObject(product);
+		AuditPO auditPO = buildAudiPO();
 		productPO.setAuditPO(auditPO);
-		return productDAO.saveProduct(buildProductObject(product));
+		return productDAO.saveProduct(buildProductPOObject(product));
+	}
+
+	/**
+	 * This method is used for build AuditPO object by default created by is "User1"
+	 * @return
+	 */
+	private AuditPO buildAudiPO() {
+		AuditPO auditPO = new AuditPO();
+		auditPO.setCreatedBy("User1");
+		auditPO.setCreatedDate(new Date());
+		return auditPO;
 	}
 	
 	public void deleteProduct(int productId) {
@@ -77,7 +62,31 @@ public class ProductService {
 		productDAO.deleteProduct(productPO);
 	}
 	
-	private ProductPO buildProductObject(Product product) {
+	/**
+	 * This method is used for build Product Model Object based on ProductPO object
+	 * @param productPO
+	 * @return Product
+	 */
+	private Product buildProductObject(ProductPO productPO) {
+		Product product = new Product();
+		product.setProductId(productPO.getProductId());
+		product.setProductName(productPO.getProductName());
+		product.setProductPrice(productPO.getProductPrice());
+		product.setProductState(productPO.getProductState());
+		product.setUnitInStock(productPO.getUnitInStock());
+		product.setProductManfacture(productPO.getProductManfacture());
+		product.setProductDescription(productPO.getProductDescription());
+		product.setProductCondition(productPO.getProductCondition());
+		product.setProductCategory(productPO.getProductCategory());
+		return product;
+	}
+	
+	/**
+	 * This method is used for build ProductPO object based on ProductPO object
+	 * @param productPO
+	 * @return Product
+	 */
+	private ProductPO buildProductPOObject(Product product) {
 		ProductPO productPO = new ProductPO();
 		productPO.setProductName(product.getProductName());
 		productPO.setProductPrice(product.getProductPrice());
@@ -88,6 +97,10 @@ public class ProductService {
 		productPO.setProductCondition(product.getProductCondition());
 		productPO.setProductCategory(product.getProductCategory());
 		return productPO;
+	}
+	
+	public ProductService() {
+		super();
 	}
 
 }
