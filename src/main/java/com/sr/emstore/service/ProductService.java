@@ -27,9 +27,7 @@ public class ProductService {
 	
 	private List<Product> buildProductObject(List<ProductPO> productPOs) {
 		List<Product> products = new ArrayList<>();
-		for(ProductPO po : productPOs) {
-			products.add(buildProductObject(po));
-		}
+		productPOs.stream().forEach(e->products.add(buildProductObject(e)));
 		return products;
 	}
 		

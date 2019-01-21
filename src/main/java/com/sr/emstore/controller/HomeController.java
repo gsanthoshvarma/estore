@@ -4,6 +4,7 @@
 package com.sr.emstore.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,9 @@ public class HomeController {
 	@RequestMapping(value="/getproducts", method=RequestMethod.GET)
 	public String getProductList(Model model) {
 		List<Product> products = productService.getproducts();
+		if(products!= null && !products.isEmpty()) {
+			products = products.stream().sorted().collect(Collectors.toList());
+		}
 		System.out.println("product "+products);
 		model.addAttribute("products",products);
 		return PageConstants.PRODUCT_PAGE;
