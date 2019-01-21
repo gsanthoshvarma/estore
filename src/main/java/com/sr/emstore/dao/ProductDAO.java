@@ -18,6 +18,7 @@ public class ProductDAO {
 	private SessionFactory sessionFactory;
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<ProductPO> getProducts(){
 		Session session = sessionFactory.openSession();
 		Criteria ctx = session.createCriteria(ProductPO.class);
