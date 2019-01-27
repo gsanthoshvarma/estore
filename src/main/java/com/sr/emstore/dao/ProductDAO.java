@@ -1,10 +1,12 @@
 package com.sr.emstore.dao;
 
 import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,8 +24,9 @@ public class ProductDAO {
 	public List<ProductPO> getProducts(){
 		Session session = sessionFactory.openSession();
 		Criteria ctx = session.createCriteria(ProductPO.class);
-		ctx.add(Restrictions.eq("productState", "Active"));
-		return (List<ProductPO>)ctx.list();
+		ctx.add(Restrictions.eq("productState", "Active"))
+            .addOrder(Order.asc("productName"));
+		return ctx.list();
 	}
 	
 	public ProductPO getProductById(int id) {

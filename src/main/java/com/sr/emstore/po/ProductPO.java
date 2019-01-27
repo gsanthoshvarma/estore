@@ -9,8 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SelectBeforeUpdate;
+
 @Entity
 @Table(name="Product")
+@SelectBeforeUpdate(value=true)
 public class ProductPO {
 
 	@Id
